@@ -1,18 +1,29 @@
+<div class="top-bar">
+
+  <div class="top-bar-left">
+    <ul class="menu">
+      <div class="menu-text">
+        <strong>Create a New Category</strong>
+      </div>
+
+      <li><%= link_to "back", categories_path %></li>
+    </ul>
+  </div>
+</div>
+
 <%= form_for(@category) do |f| %>
 <ul>
   <% @category.errors.full_messages.each do |error| %>
   <li><%= error %></li>
   <% end %>
 </ul>
-<p>
-  <%= f.label :cat_name %><br />
-  <%= f.text_field :cat_name %>
-</p>
-<p>
-  <%= f.label :cat_budget %><br />
-  <%= f.text_field :cat_budget %>
-</p>
-<p>
-  <%= f.submit %>
-</p>
+<div class="row small-up-1 medium-up-2 align-left">
+  <div class="shrink columns">
+    <%= f.label(:cat_name, 'Category Name') %><br />
+    <%= f.text_field :cat_name %>
+    <%= f.label(:cat_budget, 'Category Budget (daily)') %><br />
+    <%= f.text_field :cat_budget %>
+    <%= f.submit('Create Category', class: "button success")%>
+  </div>
+</div>
 <% end %>

@@ -1,45 +1,63 @@
-<%= link_to "< back to categories", categories_path, class: 'new_article' %>
-<div class="page-header">
-<h1><%= @category.cat_name %></h1>
+<div class="top-bar">
+
+  <div class="top-bar-left">
+    <ul class="menu">
+      <div class="menu-text">
+        <strong><%= @category.cat_name %></strong>
+      </div>
+
+      <li><%= link_to "back", categories_path %></li>
+      <li><%= link_to "delete", category_path(@category.id), class: "button alert hollow", method: :delete, data: {confirm: "Really delete the category?"} %></li>
+    </ul>
+  </div>
 </div>
-<%= link_to "delete this category", category_path(@category.id), method: :delete, data: {confirm: "Really delete the category?"} %>
-<h4>Current Average: <%= @category.cat_average %> Budget: <%= @category.cat_budget %></h4>
-<h4>New Charge:</h4>
-<%= form_for [ @category, @charge ] do |f| %>
-<p>
-  <%= f.label :merch, "Merchant" %><br/>
-  <%= f.text_field :merch %>
-</p>
-<p>
-  <%= f.label :desc, "Description" %><br/>
-  <%= f.text_area :desc %>
-</p>
-<p>
-  <%= f.label :amount, "Amount" %><br/>
-  <%= f.text_area :amount %>
-</p>
-<p>
-  <%= f.submit 'Submit' %>
-</p>
-<% end %>
-<div>
-  <h4>Charges:</h4>
-  <table class="table">
-    <tr>
-      <th>Date</th>
-      <th>Amount</th>
-      <th>Description</th>
-      <th>Merchant</th>
-      <th>Delete</th>
-    </tr>
-    <% @category.charges.reverse.each do |charge| %>
-    <tr>
-      <td><%= charge.date %></td>
-      <td><%= charge.amount %></td>
-      <td><%= charge.desc %></td>
-      <td><%= charge.merch %></td>
-      <td><%= link_to "delete", category_charge_path(@category.id, charge.id), method: :delete, data: {confirm: "Really delete the charge?"} %></td>
-    </tr>
-    <% end %>
-  </table>
+
+<div class="row align-left">
+  <div class="shrink columns">
+    <h4>Current Average: <%= @category.cat_average %></h4>
+  </div>
+  <div class="shrink columns">
+    <h4>Budget: <%= @category.cat_budget %></h4>
+  </div>
 </div>
+
+<div class="row small-up-1 medium-up-2 align-left">
+  <div class="expand columns">
+    <h4>New Charge:</h4>
+    <div class="form">
+      <%= form_for [ @category, @charge ] do |f| %>
+      <%= f.label :merch, "Merchant" %><br/>
+      <%= f.text_field :merch %>
+      <%= f.label :desc, "Description" %><br/>
+      <%= f.text_area :desc %>
+      <%= f.label :amount, "Amount" %><br/>
+      <%= f.text_area :amount %>
+      <%= f.submit('Save Charge', class: "button success")%>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row align-left">
+  <div class="shrink columns">
+    <h4>Charges:</h4>
+  </div>
+</div>
+<table class="table">
+  <tr>
+    <th>Date</th>
+    <th>Amount</th>
+    <th>Description</th>
+    <th>Merchant</th>
+    <th>Delete</th>
+  </tr>
+  <% @category.charges.reverse.each do |charge| %>
+  <tr>
+    <td><%= charge.date %></td>
+    <td><%= charge.amount %></td>
+    <td><%= charge.desc %></td>
+    <td><%= charge.merch %></td>
+    <td><%= link_to "delete", category_charge_path(@category.id, charge.id), method: :delete, data: {confirm: "Really delete the charge?"} %></td>
+  </tr>
+  <% end %>
+</table>

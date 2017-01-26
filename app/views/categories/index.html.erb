@@ -1,24 +1,40 @@
-<div class="row-fluid">
-  <div class="span6 offset3">
-    <h2 class="text-center">Categories</h2>
+<div class="row align-center">
+  <div class="shrink columns">
+    <h2>Categories</h2>
   </div>
 </div>
-<div class="row-fluid">
+<div class="row small-up-2 medium-up-4 large-up-6 align-spaced">
 
-  <ul class="thumbnails">
-    <% @categories.each do |category| %>
+  <% @categories.each do |category| %>
+  <%
+  i = 0
+  avg = 0
+  category.charges.each do |charge|
+    i = i + 1
+    avg = avg + charge.amount
+    category.cat_average = avg / i
+  end
+  %>
 
-    <li class="span4">
-      <%= link_to category.cat_name, category_path(category), class: 'btn btn-large btn-primary' %>
-    </li>
+  <div class="column">
+    <div class="card">
+      <div class="card-divider">
+        <h4><%= category.cat_name %></h4>
+      </div>
+      <div class="card-section">
+        <p>Current average is <%= category.cat_average %></p>
+        <p>Your budget is <%= category.cat_budget %></p>
+        <%= link_to category.cat_name, category_path(category), class: 'button medium' %>
+      </div>
+    </div>
+  </div>
 
-    <% end %>
-  </ul>
+  <% end %>
 
 </div>
 
-<div class="row-fluid">
-  <div class="span6 offset3">
-    <%= link_to "Create a New Category", new_category_path, class: "btn btn-primary" %>
+<div class="row">
+  <div class="shrink columns">
+    <%= link_to "Create a New Category", new_category_path, class: "button hollow" %>
   </div>
 </div>
