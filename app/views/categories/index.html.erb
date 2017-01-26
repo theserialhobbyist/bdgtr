@@ -1,8 +1,16 @@
-<div class="row align-center">
-  <div class="shrink columns">
-    <h2>Categories</h2>
+<div class="top-bar">
+
+  <div class="top-bar-left">
+    <ul class="menu">
+      <div class="menu-text">
+        <strong>bdgtr</strong>
+      </div>
+
+      <li><%= link_to "Create a New Category", new_category_path %></li>
+      </ul>
   </div>
 </div>
+<hr>
 <div class="row small-up-2 medium-up-4 large-up-6 align-spaced">
 
   <% @categories.each do |category| %>
@@ -31,10 +39,4 @@
 
   <% end %>
 
-</div>
-
-<div class="row">
-  <div class="shrink columns">
-    <%= link_to "Create a New Category", new_category_path, class: "button hollow" %>
-  </div>
 </div>
