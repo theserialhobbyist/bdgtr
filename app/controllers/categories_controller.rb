@@ -1,6 +1,15 @@
 class CategoriesController < ApplicationController
   include CategoriesHelper
 
+  before_filter :require_login
+
+  def require_login
+    unless current_user
+      redirect_to new_user_session_path
+    end
+
+  end
+
   def index
     @categories = Category.all
   end

@@ -1,6 +1,15 @@
 class ChargesController < ApplicationController
   include ChargesHelper
 
+  before_filter :require_login
+
+  def require_login
+    unless current_user
+      redirect_to new_user_session_path
+    end
+
+  end
+
   def create
     @charge = Charge.new(charge_params)
     @charge.category_id = params[:category_id]
