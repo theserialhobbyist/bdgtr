@@ -9,6 +9,7 @@
       <li><%= link_to "back", user_categories_path %></li>
     </ul>
   </div>
+  <%= render partial: 'layouts/user' %>
 </div>
 
 <%= form_for [ @user, @category ] do |f| %>

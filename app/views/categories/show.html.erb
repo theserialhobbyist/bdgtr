@@ -10,6 +10,7 @@
       <li><%= link_to "delete", user_category_path(@category.user_id, @category), class: "button alert hollow", method: :delete, data: {confirm: "Really delete the category?"} %></li>
     </ul>
   </div>
+  <%= render partial: 'layouts/user' %>
 </div>
 
 <div class="row align-left">
@@ -20,8 +21,7 @@
     <h4>Budget: <%= @category.cat_budget %></h4>
   </div>
 </div>
-<p><%= @passed_id %>   |   <%= @current_user_id %>   |    <%= @id_match %></p>
-
+<hr>
 <div class="row small-up-1 medium-up-2 align-left">
   <div class="expand columns">
     <h4>New Charge:</h4>
@@ -38,30 +38,34 @@
     </div>
   </div>
 </div>
-
+<hr>
 <div class="row align-left">
   <div class="shrink columns">
     <h4>Charges:</h4>
   </div>
 </div>
 
-<table class="table">
-  <tr>
-    <th>Date</th>
-    <th>Amount</th>
-    <th>Description</th>
-    <th>Merchant</th>
-    <th>Delete</th>
-  </tr>
+<div class="row">
+  <div class="expand columns">
+    <table class="table">
+      <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Merchant</th>
+        <th>Delete</th>
+      </tr>
 
-  <% @category.charges.reverse.each do |charge| %>
-  <tr>
-    <td><%= charge.date %></td>
-    <td><%= charge.amount %></td>
-    <td><%= charge.desc %></td>
-    <td><%= charge.merch %></td>
-    <td><%= link_to "delete", user_category_charge_path(@category.user_id, @category.id, charge.id), method: :delete, data: {confirm: "Really delete the charge?"} %></td>
-  </tr>
-  <% end %>
+      <% @category.charges.reverse.each do |charge| %>
+      <tr>
+        <td><%= charge.date %></td>
+        <td><%= charge.amount %></td>
+        <td><%= charge.desc %></td>
+        <td><%= charge.merch %></td>
+        <td><%= link_to "delete", user_category_charge_path(@category.user_id, @category.id, charge.id), method: :delete, data: {confirm: "Really delete the charge?"} %></td>
+      </tr>
+      <% end %>
 
-</table>
+    </table>
+  </div>
+</div>
