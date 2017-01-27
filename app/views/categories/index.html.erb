@@ -6,7 +6,7 @@
         <strong>bdgtr</strong>
       </div>
 
-      <li><%= link_to "Create a New Category", new_category_path %></li>
+      <li><%= link_to "Create a New Category", new_user_category_path %></li>
       </ul>
   </div>
 </div>
@@ -32,7 +32,7 @@
       <div class="card-section">
         <p>Current average is <%= category.cat_average %></p>
         <p>Your budget is <%= category.cat_budget %></p>
-        <%= link_to category.cat_name, category_path(category), class: 'button medium' %>
+        <%= link_to category.cat_name, user_category_path(category.user_id, category), class: 'button medium' %>
       </div>
     </div>
   </div>

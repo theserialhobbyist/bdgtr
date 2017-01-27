@@ -11,39 +11,53 @@ class CategoriesController < ApplicationController
   end
 
   def index
-    @categories = Category.all
+    @categories = current_user.categories.all
   end
 
   def show
+    @passed_id = params[:user_id].to_i
+    @current_user_id = current_user.id.to_i
     @category = Category.find(params[:id])
+    @id_match = "not checked"
 
-    @charge = Charge.new
-    @charge.category_id = @category_id
+    if @passed_id == @current_user_id
+      @id_match = "checked, they match"
+      @charge = Charge.new
+      @charge.category_id = @category_id
 
-    i = 0
-    avg = 0
-    @category.charges.each do |charge|
-      i = i + 1
-      avg = avg + charge.amount
-      @category.cat_average = avg / i
+      i = 0
+      avg = 0
+
+      @category.charges.each do |charge|
+        i = i + 1
+        avg = avg + charge.amount
+        @category.cat_average = avg / i
+      end
+    else
+      @id_match = "checked, no match"
+      redirect_to user_categories_path(@category.user_id)
     end
-
   end
+  
 
   def new
-    @category = Category.new
+    @user = current_user
+    @category = current_user.categories.new
   end
 
   def create
     @category = Category.new(category_params)
+    @category.user_id = params[:user_id]
+
     @category.save
-    redirect_to category_path(@category)
+
+    redirect_to user_categories_path(@category)
   end
 
   def destroy
-    @category = Category.find(params[:id])
+    @category = current_user.categories.find(params[:id])
     @category.destroy
-    redirect_to categories_path
+    redirect_to user_categories_path(@category.user_id)
   end
 
 

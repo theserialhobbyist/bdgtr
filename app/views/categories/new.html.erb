@@ -6,17 +6,12 @@
         <strong>Create a New Category</strong>
       </div>
 
-      <li><%= link_to "back", categories_path %></li>
+      <li><%= link_to "back", user_categories_path %></li>
     </ul>
   </div>
 </div>
 
-<%= form_for(@category) do |f| %>
-<ul>
-  <% @category.errors.full_messages.each do |error| %>
-  <li><%= error %></li>
-  <% end %>
-</ul>
+<%= form_for [ @user, @category ] do |f| %>
 <div class="row small-up-1 medium-up-2 align-left">
   <div class="shrink columns">
     <%= f.label(:cat_name, 'Category Name') %><br />

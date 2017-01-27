@@ -6,8 +6,8 @@
         <strong><%= @category.cat_name %></strong>
       </div>
 
-      <li><%= link_to "back", categories_path %></li>
-      <li><%= link_to "delete", category_path(@category.id), class: "button alert hollow", method: :delete, data: {confirm: "Really delete the category?"} %></li>
+      <li><%= link_to "back", user_categories_path %></li>
+      <li><%= link_to "delete", user_category_path(@category.user_id, @category), class: "button alert hollow", method: :delete, data: {confirm: "Really delete the category?"} %></li>
     </ul>
   </div>
 </div>
@@ -20,12 +20,13 @@
     <h4>Budget: <%= @category.cat_budget %></h4>
   </div>
 </div>
+<p><%= @passed_id %>   |   <%= @current_user_id %>   |    <%= @id_match %></p>
 
 <div class="row small-up-1 medium-up-2 align-left">
   <div class="expand columns">
     <h4>New Charge:</h4>
     <div class="form">
-      <%= form_for [ @category, @charge ] do |f| %>
+      <%= form_for [current_user, @category, @charge ] do |f| %>
       <%= f.label :merch, "Merchant" %><br/>
       <%= f.text_field :merch %>
       <%= f.label :desc, "Description" %><br/>
@@ -43,6 +44,7 @@
     <h4>Charges:</h4>
   </div>
 </div>
+
 <table class="table">
   <tr>
     <th>Date</th>
@@ -51,13 +53,15 @@
     <th>Merchant</th>
     <th>Delete</th>
   </tr>
+
   <% @category.charges.reverse.each do |charge| %>
   <tr>
     <td><%= charge.date %></td>
     <td><%= charge.amount %></td>
     <td><%= charge.desc %></td>
     <td><%= charge.merch %></td>
-    <td><%= link_to "delete", category_charge_path(@category.id, charge.id), method: :delete, data: {confirm: "Really delete the charge?"} %></td>
+    <td><%= link_to "delete", user_category_charge_path(@category.user_id, @category.id, charge.id), method: :delete, data: {confirm: "Really delete the charge?"} %></td>
   </tr>
   <% end %>
+
 </table>

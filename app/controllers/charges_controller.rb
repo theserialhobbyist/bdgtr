@@ -17,13 +17,13 @@ class ChargesController < ApplicationController
 
     @charge.save
 
-    redirect_to category_path(@charge.category)
+    redirect_to user_category_path(@charge.category.user_id, @charge.category)
   end
 
   def destroy
     @charge = Charge.find(params[:id])
     @charge.destroy
-    redirect_to category_path(@charge.category)
+    redirect_to user_category_path(@charge.category.user_id, @charge.category)
   end
 
 end
